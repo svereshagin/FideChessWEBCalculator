@@ -42,7 +42,7 @@ class ChessMatchFIDE:
         """Вычисляем ожидаемый результат с учётом ограничения FIDE при разнице >400"""
         rating_diff = self.enemy - self.hero
 
-        if rating_diff > 400:
+        if rating_diff >= 400:
             rating_diff = 400
         elif rating_diff < -400:
             rating_diff = -400
