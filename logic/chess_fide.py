@@ -1,6 +1,11 @@
+"""
+Cкрипт для имплементации FIDE
+"""
+
 from dataclasses import dataclass
 from decimal import Decimal, ROUND_HALF_UP
 
+from models.chess.participant import Participant
 from models.chess_fide_rating_calculator import ChessFIDEInput
 
 
@@ -9,14 +14,6 @@ def classic_round(x):
     d = Decimal(str(x))
     return int(d.quantize(Decimal('1'), rounding=ROUND_HALF_UP))
 
-@dataclass
-class Participant:
-    rating: float
-    rating_change: float = 0.0
-    games_played: int = 0
-
-    def __sub__(self, other):
-        return self.rating - other.rating
 
 
 class ChessMatchFIDE:
@@ -65,12 +62,4 @@ class ChessMatchFIDE:
 
 
 
-def calculate_result_fide(data: ChessFIDEInput):
-    hero = Participant(data.hero_rating)
-    
-    for _, enemy_data in data.enemies.items():
-        enemy = Participant(enemy_data.rating)
-        match = ChessMatchFIDE(hero, enemy, enemy_data.result)
-        change = match.apply_rating_change()
-    return classic_round(hero.rating + hero.rating_change)
 

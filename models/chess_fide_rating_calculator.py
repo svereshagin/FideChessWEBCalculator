@@ -8,7 +8,7 @@ class EnemyData(BaseModel):
     
     
 class ChessFIDEInput(BaseModel):
-    hero_rating: int
+    hero_rating: int = Field(ge=1000)
     enemies: Dict[str, EnemyData]  #рейтинг противника, результат игры 0,0.5,1    
 
 
