@@ -1,0 +1,17 @@
+
+services:
+  chess_api:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    container_name: chess_api
+    command: uv run python3 src/main.py
+    volumes:
+      - .:/app
+
+    ports:
+      - "${API_PORT:-8000}:${API_PORT:-8000}"
+
